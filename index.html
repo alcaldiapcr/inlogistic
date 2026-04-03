@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INLOGISTIC SAS – Innovación Logística y Transporte de Colombia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:    #1f8c3b;
+      --green-lt: #27a847;
+      --green-dk: #145c27;
+      --white:    #ffffff;
+      --offwhite: #f5f8f5;
+      --gray:     #4a5568;
+      --dark:     #141a14;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--offwhite);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 6vw;
+      background: rgba(20,26,20,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--green);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-logo img {
+      height: 46px; width: 46px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--green);
+    }
+    .nav-logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--white); letter-spacing: 2px;
+    }
+    .nav-logo-text span { color: var(--green-lt); }
+    nav ul {
+      list-style: none; display: flex; gap: 32px;
+    }
+    nav ul a {
+      text-decoration: none; font-size: 0.8rem;
+      font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+      color: #ccc; transition: color .2s;
+    }
+    nav ul a:hover { color: var(--green-lt); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid; place-items: center;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(20,26,20,0.88) 40%, rgba(31,140,59,0.35) 100%),
+        url('2.jpg') center/cover no-repeat;
+      animation: heroZoom 14s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.07); }
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; padding: 0 6vw;
+      animation: fadeUp .9s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(30px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--green); color: #fff;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; padding: 6px 18px; border-radius: 2px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 700; line-height: 1;
+      color: var(--white); letter-spacing: 4px;
+    }
+    .hero h1 span { color: var(--green-lt); }
+    .hero-sub {
+      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+      color: #aaa; letter-spacing: 3px;
+      text-transform: uppercase; margin: 18px 0 36px;
+      font-weight: 300;
+    }
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 3px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase;
+      text-decoration: none; font-weight: 600; transition: all .25s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: var(--green-lt); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(31,140,59,0.4); }
+    .btn-outline { background: transparent; color: #fff; border: 2px solid #fff; }
+    .btn-outline:hover { background: #fff; color: var(--dark); transform: translateY(-2px); }
+
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: #666; font-size: 0.65rem; letter-spacing: 2px;
+      text-transform: uppercase; z-index: 2;
+      animation: bounce 2s infinite;
+    }
+    .scroll-indicator svg { width: 20px; fill: none; stroke: var(--green-lt); stroke-width: 2; }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--green);
+      padding: 16px 6vw;
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: center; align-items: center;
+    }
+    .strip-item {
+      display: flex; align-items: center; gap: 8px;
+      color: #fff; font-size: 0.8rem; font-weight: 500; letter-spacing: 1px;
+    }
+    .strip-item svg { width: 18px; flex-shrink: 0; fill: rgba(255,255,255,0.6); }
+    .strip-divider { width: 1px; height: 20px; background: rgba(255,255,255,0.3); }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 6vw; }
+    .section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--dark); margin-bottom: 20px;
+    }
+    .section-body {
+      font-size: 1rem; line-height: 1.75; color: var(--gray);
+      max-width: 680px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: var(--dark);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+    }
+    .about .section-title { color: #fff; }
+    .about .section-body { color: #aaa; }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-wrap img {
+      width: 100%; border-radius: 4px; object-fit: cover;
+      max-height: 420px;
+      border: 3px solid var(--green);
+      display: block;
+    }
+    .about-accent {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 120px; height: 120px;
+      border: 3px solid var(--green-lt);
+      border-radius: 4px; z-index: -1;
+    }
+    .about-stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px;
+    }
+    .about-stat {
+      border-left: 3px solid var(--green);
+      padding-left: 16px;
+    }
+    .about-stat-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem; font-weight: 700; color: var(--green-lt);
+    }
+    .about-stat-lbl {
+      font-size: 0.78rem; color: #777; letter-spacing: 1px; margin-top: 2px;
+    }
+
+    /* ── SERVICIOS ── */
+    .services { background: var(--offwhite); }
+    .services-header { text-align: center; margin-bottom: 60px; }
+    .services-header .section-body { margin: 0 auto; text-align: center; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    @media (max-width: 1024px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 4px;
+      padding: 36px 28px;
+      border-bottom: 4px solid transparent;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      transition: all .3s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--green);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .35s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(31,140,59,0.15);
+      border-bottom-color: var(--green);
+    }
+    .service-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--green); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 20px;
+    }
+    .service-icon svg { width: 28px; stroke: #fff; fill: none; stroke-width: 1.8; }
+    .service-card h3 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem; font-weight: 600; letter-spacing: 1px;
+      color: var(--dark); margin-bottom: 10px;
+    }
+    .service-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.7; }
+
+    /* ── PORTAFOLIO (gallery) ── */
+    .portfolio { background: var(--dark); }
+    .portfolio .section-title { color: #fff; text-align: center; }
+    .portfolio .section-label { text-align: center; }
+    .portfolio-intro { text-align: center; margin-bottom: 50px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      grid-template-rows: 340px 340px;
+      gap: 12px;
+    }
+    .gallery-item {
+      border-radius: 4px; overflow: hidden;
+      position: relative;
+    }
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+      transition: transform .5s;
+    }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,26,20,0.7) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+      display: flex; align-items: flex-end; padding: 20px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span {
+      color: #fff; font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        grid-template-rows: 260px 260px 260px;
+      }
+      .gallery-item:first-child { grid-row: span 1; }
+    }
+
+    /* ── FONTUR BADGE ── */
+    .fontur-section {
+      background: var(--offwhite);
+      text-align: center; padding: 60px 6vw;
+    }
+    .fontur-badge {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: #fff; padding: 20px 36px; border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      border: 2px solid var(--green);
+    }
+    .fontur-badge svg { width: 40px; fill: var(--green); }
+    .fontur-text strong {
+      display: block; font-family: 'Oswald', sans-serif;
+      font-size: 1rem; letter-spacing: 2px; color: var(--dark);
+    }
+    .fontur-text span { font-size: 0.78rem; color: var(--gray); }
+
+    /* ── CONTACTO ── */
+    .contact {
+      background: var(--green-dk);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+    }
+    .contact .section-title { color: #fff; }
+    .contact .section-body { color: rgba(255,255,255,0.7); }
+    .contact-items { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 16px;
+    }
+    .contact-icon {
+      width: 44px; height: 44px; background: rgba(255,255,255,0.1);
+      border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .contact-icon svg { width: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+    .contact-info { flex: 1; }
+    .contact-info label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--green-lt);
+      display: block; margin-bottom: 4px;
+    }
+    .contact-info a, .contact-info p {
+      color: #fff; font-size: 0.95rem; text-decoration: none;
+      line-height: 1.5;
+    }
+    .contact-info a:hover { color: var(--green-lt); }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 3px; color: #fff;
+      font-family: 'Inter', sans-serif; font-size: 0.88rem;
+      outline: none; transition: border .2s;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--green-lt); }
+    .contact-form textarea { resize: vertical; min-height: 130px; }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 200;
+      width: 58px; height: 58px; border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+      text-decoration: none;
+      animation: waPulse 2.5s infinite;
+      transition: transform .2s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+    .wa-float svg { width: 30px; fill: #fff; }
+    @keyframes waPulse {
+      0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+      50%      { box-shadow: 0 6px 40px rgba(37,211,102,0.8); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0d110d;
+      padding: 32px 6vw;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 16px;
+      border-top: 2px solid var(--green-dk);
+    }
+    .footer-logo {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      color: #fff; letter-spacing: 3px;
+    }
+    .footer-logo span { color: var(--green-lt); }
+    footer p {
+      font-size: 0.75rem; color: #555; text-align: center;
+    }
+    .footer-nit { font-size: 0.7rem; color: #444; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav ul { display: none; }
+      .about, .contact { grid-template-columns: 1fr; gap: 40px; }
+      .about-img-wrap { order: -1; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-column: span 2; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-accent { display: none; }
+    }
+    @media (max-width: 480px) {
+      .gallery { grid-template-columns: 1fr; }
+      .gallery-item:first-child { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.jpg" alt="Inlogistic" />
+    <span class="nav-logo-text">IN<span>LOGISTIC</span></span>
+  </div>
+  <ul>
+    <li><a href="#about">Nosotros</a></li>
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#portfolio">Flota</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Habilitados FONTUR Colombia</div>
+    <h1>IN<span>LOGISTIC</span></h1>
+    <p class="hero-sub">Innovación Logística y Transporte de Colombia S.A.S</p>
+    <div class="hero-ctas">
+      <a href="#services" class="btn btn-primary">
+        <svg viewBox="0 0 24 24" width="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+        Nuestros Servicios
+      </a>
+      <a href="#contact" class="btn btn-outline">Contáctenos</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="strip">
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+    +57 350 631 6607
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c0a3afaeb4a1a3b4a5aeafb380a9aeacafa7a9b3b4a9a3eea3af">[email&#160;protected]</a>
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+    Dpto. Vichada, Colombia
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+    NIT. 900.726.468-4
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-label">Quiénes Somos</div>
+    <h2 class="section-title">Transporte especial con precisión logística</h2>
+    <p class="section-body">
+      En <strong style="color:var(--green-lt)">Inlogistic SAS</strong> somos una empresa habilitada por FONTUR Colombia para la prestación de servicio público de transporte especial. Operamos en el Departamento de Vichada y en todo el territorio nacional, con una flota moderna y conductores altamente calificados.
+    </p>
+    <p class="section-body" style="margin-top:14px;">
+      Nuestro compromiso es ofrecer soluciones de movilidad confiables, seguras y a tiempo, adaptadas a las necesidades de cada cliente: desde traslados corporativos hasta apoyo logístico en zonas de operación industrial.
+    </p>
+    <div class="about-stat-grid">
+      <div class="about-stat">
+        <div class="about-stat-num">100%</div>
+        <div class="about-stat-lbl">Flota propia</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">24/7</div>
+        <div class="about-stat-lbl">Disponibilidad</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">FONTUR</div>
+        <div class="about-stat-lbl">Habilitados</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">VIC</div>
+        <div class="about-stat-lbl">Vichada, Colombia</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-img-wrap">
+    <img src="2.jpg" alt="Flota Inlogistic en campo" />
+    <div class="about-accent"></div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">Lo que ofrecemos</div>
+    <h2 class="section-title">Portafolio de Servicios</h2>
+    <p class="section-body">
+      Brindamos soluciones de transporte especial adaptadas a sectores industriales, corporativos y turísticos con estándares de seguridad vial y confort.
+    </p>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      </div>
+      <h3>Transporte Especial</h3>
+      <p>Servicio público de transporte especial habilitado por el Ministerio de Transporte / FONTUR, para traslado de personal y grupos organizados.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Traslados Corporativos</h3>
+      <p>Transporte de personal para empresas, campo petrolero, minas y proyectos de infraestructura en zonas remotas y de difícil acceso.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+      </div>
+      <h3>Turismo y Excursiones</h3>
+      <p>Planes de turismo nacional con unidades cómodas y tripulación certificada. Desde viajes de un día hasta tours de varios destinos.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Logística Segura</h3>
+      <p>Gestión y control de flotas con seguimiento GPS, personal calificado y cumplimiento estricto de protocolos de seguridad vial.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h3>Transporte de Personal</h3>
+      <p>Movilización de grupos de trabajo desde puntos de concentración hasta zonas de faena o proyectos industriales en cualquier región del país.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      </div>
+      <h3>Flota Multi-vehículo</h3>
+      <p>Contamos con camionetas 4x4, vans, microbuses y buses de pasajeros para adaptarnos al tamaño de cada operación y tipo de terreno.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PORTFOLIO / FLOTA -->
+<section class="portfolio" id="portfolio">
+  <div class="portfolio-intro">
+    <div class="section-label">Nuestra Flota</div>
+    <h2 class="section-title">Vehículos en operación</h2>
+  </div>
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="1.jpg" alt="Portafolio de flota Inlogistic" />
+      <div class="gallery-overlay"><span>Portafolio completo</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="2.jpg" alt="Operación en campo Inlogistic" />
+      <div class="gallery-overlay"><span>Zonas industriales</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="logo.jpg" alt="Inlogistic marca" />
+      <div class="gallery-overlay"><span>Inlogistic SAS</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FONTUR -->
+<div class="fontur-section">
+  <div class="fontur-badge">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <div class="fontur-text">
+      <strong>Habilitados por FONTUR Colombia</strong>
+      <span>Servicio Público de Transporte Especial – NIT 900.726.468-4</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO -->
+<section class="contact" id="contact">
+  <div>
+    <div class="section-label">Háblenos</div>
+    <h2 class="section-title">Contáctenos</h2>
+    <p class="section-body">Estamos disponibles para atenderle y brindarle una cotización personalizada para su operación.</p>
+    <div class="contact-items">
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        </div>
+        <div class="contact-info">
+          <label>Teléfono / WhatsApp</label>
+          <a href="https://wa.me/573506316607">+57 350 631 6607</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="contact-info">
+          <label>Correo Electrónico</label>
+          <a href="/cdn-cgi/l/email-protection#52313d3c26333126373c3d21123b3c3e3d353b21263b317c313d"><span class="__cf_email__" data-cfemail="264549485247455243484955664f484a49414f55524f45084549">[email&#160;protected]</span></a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="contact-info">
+          <label>Ubicación</label>
+          <p>Departamento Vichada, Colombia</p>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <div class="contact-info">
+          <label>Sitio Web</label>
+          <a href="http://www.inlogistic.org" target="_blank">www.inlogistic.org</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div>
+    <p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin-bottom:20px;">
+      Complete el formulario y le responderemos a la brevedad posible.
+    </p>
+    <div class="contact-form">
+      <div class="form-row">
+        <input type="text" placeholder="Nombre" />
+        <input type="text" placeholder="Empresa" />
+      </div>
+      <input type="email" placeholder="Correo electrónico" />
+      <input type="tel" placeholder="Teléfono / WhatsApp" />
+      <textarea placeholder="Cuéntenos su necesidad de transporte..."></textarea>
+      <a href="https://wa.me/573506316607?text=Hola%2C%20me%20interesa%20cotizar%20el%20servicio%20de%20transporte%20con%20Inlogistic%20SAS." class="btn btn-primary" style="text-align:center; justify-content:center;">
+        <svg viewBox="0 0 24 24" width="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.533 5.854L0 24l6.335-1.521A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.015-1.374l-.36-.213-3.762.903.948-3.666-.235-.376A9.818 9.818 0 1112 21.818z"/></svg>
+        Enviar por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">IN<span>LOGISTIC</span> SAS</div>
+  <p>© 2024 Innovación Logística y Transporte de Colombia S.A.S<br/>
+  Todos los derechos reservados · NIT 900.726.468-4</p>
+  <div class="footer-nit">Departamento Vichada, Colombia</div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/573506316607?text=Hola%2C%20deseo%20información%20sobre%20sus%20servicios%20de%20transporte." class="wa-float" target="_blank" rel="noopener" title="Chatear por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path

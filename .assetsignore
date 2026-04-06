@@ -1,0 +1,5 @@
+.git
+.wrangler
+.wranglerignore
+node_modules
+README.*

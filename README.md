@@ -9,7 +9,7 @@ Sitio web institucional de **Innovación Logística y Transporte de Colombia S.A
 
 [![Manual HTML](https://img.shields.io/badge/Manual-HTML-E34F26?style=for-the-badge&logo=html5)](https://htmlpreview.github.io/?https://github.com/alcaldiapcr/inlogistic/blob/master/README.html)
 [![Manual PDF](https://img.shields.io/badge/Manual-PDF-2E8B57?style=for-the-badge&logo=libreoffice)](https://raw.githubusercontent.com/alcaldiapcr/inlogistic/master/README.pdf)
-[![Despliegue](https://img.shields.io/badge/Acceso-En_Línea-28a745?style=for-the-badge&logo=vercel&logoColor=white)](https://inlogistic.puertocarreno.gov.co)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-28a745?style=for-the-badge&logo=vercel&logoColor=white)](https://inlogistic.puertocarreno.gov.co)
 
 ## Servicios
 

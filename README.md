@@ -7,8 +7,8 @@ Sitio web institucional de **Innovación Logística y Transporte de Colombia S.A
 
 ## Documentación
 
-[![Manual HTML](https://img.shields.io/badge/Manual-HTML-E34F26?style=for-the-badge&logo=html5)](https://htmlpreview.github.io/?https://github.com/alcaldiapcr/inlogistic/blob/master/README.html)
-[![Manual PDF](https://img.shields.io/badge/Manual-PDF-2E8B57?style=for-the-badge&logo=libreoffice)](https://raw.githubusercontent.com/alcaldiapcr/inlogistic/master/README.pdf)
+[![Manual HTML](https://img.shields.io/badge/Manual-HTML-E34F26?style=for-the-badge&logo=html5)](https://htmlpreview.github.io/?https://github.com/alcaldiapcr/inlogistic/blob/master/docs/README.html)
+[![Manual PDF](https://img.shields.io/badge/Manual-PDF-2E8B57?style=for-the-badge&logo=libreoffice)](https://raw.githubusercontent.com/alcaldiapcr/inlogistic/master/docs/README.pdf)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-28a745?style=for-the-badge&logo=vercel&logoColor=white)](https://inlogistic.puertocarreno.gov.co)
 
 ## Servicios
@@ -30,7 +30,7 @@ Sitio web institucional de **Innovación Logística y Transporte de Colombia S.A
 - **WhatsApp:** +57 350 631 6607
 - **Web:** [https://www.facebook.com/inlogisticsa/](https://www.facebook.com/inlogisticsa/)
 - **NIT:** 900.726.468-4
-- **Ubicación:** Departamento Vichada, Colombia
+- **Ubicación:** Puerto Carreño, Vichada, Colombia
 
 ---
 
